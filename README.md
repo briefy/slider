@@ -1,0 +1,2 @@
+# slider
+html slider snippets
