@@ -1,0 +1,32 @@
+doctype html
+html(lang="zh-CN")
+  head
+    title briefy slider show 
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name=viewport content="width=device-width, initial-scale=1")
+    link(rel="stylesheet" href="/css/slide.css")
+  body
+    -var imgNum = 3,imgSize={w:965,h:450};
+    .slide-wrap
+      ol(id="slide-body",style={width:(imgNum + 1) * imgSize.w + "px", "margin-left": 0})
+        -var i = imgNum;
+        while i-- >=0
+          li 
+            div
+              a(href="#", title="title")
+                div 
+                  - if(i === 0) i = 3;
+                  img(src="/img/banner#{i}.jpg")
+      div
+        a(href="#", title="title") 
+          div
+            img(src"/img/banner#{i}.jpg")
+      .focus-dot
+        -i = imgNum
+        while i-- > 0
+        a(href="javascript:void(0);", class={current: i === 3})= i
+      a.control-prev
+      a.control-next
+
+  script(src="/js/slide.js")
