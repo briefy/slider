@@ -1,27 +1,29 @@
 const bodys = new WeakSet();
+const m = new Map([
+  ['left', 'marginLeft'],
+  ['right', 'marginRight'],
+  ['up', 'marginTop'],
+  ['down', 'marginBottom']
+]);
+
+let defOpt = {
+  bodySelector: '#slide-body',
+  slides: 3,
+  imgSize: {
+    w: 965,
+    h: 450
+  },
+  dir: 'left'
+};
 
 module.exports = (options) => {
-  const m = new Map([
-    ['left', 'marginLeft'],
-    ['right', 'marginRight'],
-    ['up', 'marginTop'],
-    ['down', 'marginBottom']
-  ]);
-
-  let defOpt = {
-    bodySelector: '#slide-body',
-    slides: 3,
-    imgSize: {
-      w: 965,
-      h: 450
-    },
-    dir: 'left'
-  };
-
-  let w, h slides, dir, slideBody, slideUnit;
+  let w;
+  let h;
+  let slides;
+  let dir;
+  let slideBody;
+  let slideUnit;
   let curIndex = 0;
-
-
 
   const Slide = class {
     construct(opt) {
@@ -38,7 +40,7 @@ module.exports = (options) => {
       slides = defOpt.slides;
       w = defOpt.imgSize.w;
       h = defOpt.imgSize.h;
-      slideUint = /[t]$/.test(direction) ? w : h;
+      slideUnit = /[t]$/.test(dir) ? w : h;
 
       return this;
     }
@@ -59,7 +61,7 @@ module.exports = (options) => {
     prev() {
       curIndex--;
       if (curIndex >= 0) {
-        slideBody.style[m.get(dir)] = `${-slideUnit * curIndex}px`
+        slideBody.style[m.get(dir)] = `${-slideUnit * curIndex}px`;
       }
 
       return this;
@@ -70,13 +72,13 @@ module.exports = (options) => {
     }
 
     hide() {
-      slideBody.style.display = "none";
+      slideBody.style.cssText = 'display:none';
 
       return this;
     }
 
     show() {
-      slideBody.style.display = "block";
+      slideBody.style.cssText = 'display:block';
 
       return this;
     }
